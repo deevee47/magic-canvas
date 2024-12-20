@@ -16,7 +16,7 @@ const CustomScroll = () => {
               </>
           }
       >
-              <video src="sample.mp4" muted loop autoPlay></video>
+              <video src="demo.mp4" muted loop autoPlay></video>
               
           </ContainerScroll>
 
