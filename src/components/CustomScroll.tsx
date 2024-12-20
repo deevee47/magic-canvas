@@ -1,5 +1,6 @@
 import React from 'react'
 import { ContainerScroll } from './ui/container-scroll-animation'
+import Image from 'next/image'
 
 const CustomScroll = () => {
   return (
@@ -16,8 +17,9 @@ const CustomScroll = () => {
               </>
           }
       >
-              <video src="demo.mp4" muted loop autoPlay></video>
-              
+              <div>
+                  <video src="/demo.mp4" muted loop autoPlay playsInline controls></video>
+              </div>              
           </ContainerScroll>
 
       </div>
