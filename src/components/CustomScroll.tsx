@@ -1,6 +1,5 @@
 import React from 'react'
 import { ContainerScroll } from './ui/container-scroll-animation'
-import { Fullscreen } from 'lucide-react'
 
 const CustomScroll = () => {
   return (
