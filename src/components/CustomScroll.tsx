@@ -1,5 +1,6 @@
 import React from 'react'
 import { ContainerScroll } from './ui/container-scroll-animation'
+import { Fullscreen } from 'lucide-react'
 
 const CustomScroll = () => {
   return (
@@ -16,9 +17,18 @@ const CustomScroll = () => {
               </>
           }
       >
-              <div>
-                  <video controls muted loop autoPlay playsInline preload='none'> <source type="video/mp4" src="/demo.mp4"></source>Your browser does not support the video tag.  </video>
-              </div>              
+              <div className='h-full w-full'>
+                  <iframe
+                      src="https://www.youtube.com/embed/P2QhoWrxFjE?autoplay=1&controls=0"
+                      allow="autoplay"
+                      allowFullScreen
+                      width="100%"
+                      height="100%"
+                      loading="eager"
+                  ></iframe>
+              </div>
+
+             
           </ContainerScroll>
 
       </div>
