@@ -2,6 +2,7 @@
 import React from 'react';
 import ShinyButton from './ui/shiny-button';
 import { GithubIcon } from 'lucide-react';
+import Link from 'next/link';
 
 const Navbar = () => {
     return (
@@ -9,8 +10,12 @@ const Navbar = () => {
             <div className="text-2xl font-bold text-white">MagicCanvas</div>
 
             <div className="flex space-x-4">
-                <ShinyButton><GithubIcon /></ShinyButton>
-                <ShinyButton>Hire Me 😉</ShinyButton>
+                <Link href="https://github.com/deevee47" target="_blank">
+                    <ShinyButton><GithubIcon /></ShinyButton>
+                </Link>
+                <Link href="https://twitter.com/deevee47" target="_blank">
+                    <ShinyButton>Hire Me 😉</ShinyButton>
+                </Link>
             </div>
         </div>
     );

@@ -7,13 +7,13 @@ import React from 'react'
 
 const Page = () => {
   return (
-    <>
+    <div>
       <Navbar />
       <Background />
       <Hero />
       <CustomScroll />
       <Testimonials />
-    </>
+    </div>
   )
 }
 

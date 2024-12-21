@@ -14,8 +14,8 @@ const Testimonials = () => {
       <div className='w-full flex flex-col justify-center items-center'>
           <h1 className="text-8xl font-bold">लोगो ka काम hai कहना 🫢</h1>
           <div className='flex flex-col justify-center items-center italic opacity-50 pb-20 pt-20 text-xl'>
-              Adding Testimonials Soon!
-              <span className='text-gray-200'>Want me to add yours?  </span>
+              Adding Testimonials Soon! Want me to add yours? 
+              <span className='text-gray-200'>Share reviews on my X</span>
               <a
                   href="https://twitter.com/deevee47"
                   className="ml-2 flex items-center text-blue-400 hover:text-blue-700 transition duration-300"
