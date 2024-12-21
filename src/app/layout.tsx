@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     description: "Drawing problems, deriving solutions! Solve any problem whether it's a mathematical equation, real life world problem or a story line with a simple drawing.",
     images: [
       {
-        url: "/magic-canvas-preview.jpg",
+        url: "/wand.jpg",
         width: 1200,
         height: 630,
         alt: "Magic Canvas Preview",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Magic Canvas",
     description: "Drawing problems, deriving solutions! Solve any problem whether it's a mathematical equation, real life world problem or a story line with a simple drawing.",
-    images: ["/magic-canvas-preview.jpg"],
+    images: ["/wand.jpg"],
     creator: "@deevee47",
     site: "@deevee47",
   },
