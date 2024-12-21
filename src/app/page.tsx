@@ -162,10 +162,10 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-gray-900/40  text-white">
       {/* Control Bar */}
-      <div className="grid top-10 absolute left-1/2 tranform -translate-x-1/2 grid-cols-3 gap-4 p-4 items-center w-[80%] border-2 border-gray-800/50 rounded-full bg-gray-700/30 backdrop-blur-xl mx-auto">
+      <div className="grid text-center top-10 absolute left-1/2 tranform -translate-x-1/2 grid-cols-3 gap-4 p-4 items-center w-full sm:w-[80%] border-2 border-gray-800/50 rounded-full bg-gray-700/30 backdrop-blur-xl mx-auto">
         <button
           onClick={resetCanvas}
-          className="font-semibold rounded-full py-2 px-6 bg-red-400/50 backdrop-blur-lg hover:bg-red-700 text-white transition-shadow shadow-md hover:shadow-xl"
+          className="font-semibold  text-sm sm:text-lg rounded-full py-2 px-1 sm:py-2 sm:px-6  bg-red-400/50 backdrop-blur-lg hover:bg-red-700 text-white transition-shadow shadow-md hover:shadow-xl"
           disabled={loading}
         >
           Reset
@@ -186,7 +186,7 @@ export default function Home() {
         </div>
         <button
           onClick={sendData}
-          className="font-semibold rounded-full py-2 px-6 bg-green-600 hover:bg-green-700 text-white transition-shadow shadow-md hover:shadow-xl"
+          className="font-semibold text-sm sm:text-lg text-center items-center rounded-full py-2 px-1 sm:py-2 sm:px-6  bg-green-600 hover:bg-green-700 text-white transition-shadow shadow-md hover:shadow-xl"
           disabled={loading}
         >
           {loading ? "Calculating..." : "Calculate"}
@@ -202,14 +202,35 @@ export default function Home() {
           >
             &times;
           </button>
-          <div className="text-2xl font-bold mb-3 text-gray-400 py-2">
-            Expression: {JSON.parse(result.expr.slice(8, -4)).expr}
-          </div>
-          <div className="text-2xl font-semibold text-green-400">
-            Result: {JSON.parse(result.expr.slice(8, -4)).result}
-          </div>
+          {result && (
+            <div className="fixed top-10 left-1/2 transform -translate-x-1/2 bg-gray-800/30 backdrop-blur-lg p-6 rounded-xl border border-gray-800 text-center">
+              <button
+                onClick={() => setResult(null)}
+                className="absolute top-1 right-3 text-gray-400 hover:text-gray-200 text-3xl"
+              >
+                &times;
+              </button>
+              <div className="text-2xl font-bold mb-3 text-gray-400 py-2">
+                Expression:
+                {(() => {
+                  const exprMatch = result.expr.match(/"expr":\s*"([^"]*)"/);
+                  return exprMatch ? exprMatch[1] : "Reload and draw again";
+                })()}
+              </div>
+              <div className="text-2xl font-semibold text-green-400">
+                Result:
+                {(() => {
+                  const resultMatch = result.expr.match(/"result":\s*"([^"]*)"/);
+                  return resultMatch ? resultMatch[1] : "Reload and draw again";
+                })()}
+              </div>
+            </div>
+          )}
+
+
         </div>
       )}
+
 
       {/* Canvas */}
       <canvas

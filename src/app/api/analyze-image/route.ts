@@ -62,7 +62,7 @@ const prompt = `You have been given an image with some mathematical expressions,
 
     
 
-    Return ONLY a JSON with the results, no additional text. Dont use double quotes in your answer
+    Return ONLY a JSON with the results, no additional text.
     Strictly follow this format: {"expr": "expression", "result": "result", "assign": true/false} so there is not any error in JSON parsing dont give Unterminated string in JSON `;
 
 
