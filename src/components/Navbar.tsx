@@ -11,12 +11,14 @@ const Navbar = () => {
 
             <div className="flex space-x-2 sm:space-x-4">
                 <Link href="https://github.com/deevee47" target="_blank">
-                    <ShinyButton>
+                    <ShinyButton className="p-2 sm:p-3">
                         <GithubIcon className="h-5 w-5 sm:h-6 sm:w-6" />
                     </ShinyButton>
                 </Link>
                 <Link href="https://twitter.com/deevee47" target="_blank">
-                    <ShinyButton className="text-sm sm:text-base">Hire Me 😉</ShinyButton>
+                    <ShinyButton className="text-sm sm:text-base p-2 sm:p-3">
+                        Hire Me 😉
+                    </ShinyButton>
                 </Link>
             </div>
         </div>
