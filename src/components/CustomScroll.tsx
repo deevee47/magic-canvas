@@ -17,7 +17,7 @@ const CustomScroll = () => {
           }
       >
               <div>
-                  <video src="/demo.mp4" muted loop autoPlay playsInline controls></video>
+                  <video controls muted loop autoPlay playsInline preload='none'> <source type="video/mp4" src="/demo.mp4"></source>Your browser does not support the video tag.  </video>
               </div>              
           </ContainerScroll>
 
