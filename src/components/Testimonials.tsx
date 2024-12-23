@@ -1,6 +1,7 @@
-import { Linkedin, LinkedinIcon, Twitter } from 'lucide-react';
+import { Linkedin, Twitter } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
+import Image from 'next/image';
 
 interface Testimonial {
     title: string;
@@ -33,10 +34,12 @@ const Testimonials = () => {
                         <div className="absolute animate-pulse -inset-1 bg-gradient-to-r from-purple-800/70 via-pink-800/70 to-blue-800/70 w-[90%] h-[60%] my-auto mx-auto rounded-full blur-md"></div>
                         <div className="relative bg-blue-900/50 backdrop-blur-3xl rounded-2xl p-4">
                             <div className="flex items-center mb-4">
-                                <img
+                                <Image
                                     src={testimonial.avatar}
                                     alt={`${testimonial.title} avatar`}
                                     className="w-12 h-12 rounded-full mr-4"
+                                    width={48}
+                                    height={48}
                                 />
                                 <div>
                                     <h1 className="text-2xl">{testimonial.title}</h1>
@@ -56,6 +59,7 @@ const Testimonials = () => {
                 
                 <div className="flex gap-6">
                     {socialLinks.map((link, index) => (<Link
+                        key={index}
                         href={link.link}
                         className="mt-2 flex items-center text-blue-400 hover:text-blue-700 transition duration-300"
                         target="_blank"
