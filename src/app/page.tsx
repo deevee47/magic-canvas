@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { SWATCHES } from "../../constants";
 import toast from "react-hot-toast";
+import { Eraser, Pencil, RotateCcw, Twitter, Wand2 } from "lucide-react";
 
 interface GeneratedResponse {
   expr: string;
@@ -13,6 +14,13 @@ interface Variables {
   [key: string]: string | number;
 }
 
+interface clearCircleProps {
+  context: CanvasRenderingContext2D;
+  x: number;
+  y: number;
+  radius: number;
+}
+
 export default function Home() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isDrawing, setIsDrawing] = useState(false);
@@ -21,7 +29,11 @@ export default function Home() {
   const [result, setResult] = useState<GeneratedResponse | null>(null);
   const [variables,] = useState<Variables>({});
   const [loading, setLoading] = useState(false);
+  const [isErasing, setIsErasing] = useState(false);
+  const [isIdle, setIsIdle] = useState(false);
+  const idleTimeout = useRef<NodeJS.Timeout | null>(null);
 
+  
   useEffect(() => {
     if (reset) {
       resetCanvas();
@@ -135,8 +147,19 @@ export default function Home() {
   };
 
   const stopDrawing = () => setIsDrawing(false);
-  const [isIdle, setIsIdle] = useState(false);
-  const idleTimeout = useRef<NodeJS.Timeout | null>(null);
+
+  const eraseDrawing = () => {
+    setIsErasing((prev) => !prev);
+  };
+
+  function clearCircle({ context, x, y, radius }: clearCircleProps) {
+    context.save();
+    context.beginPath();
+    context.arc(x, y, radius, 0, 2 * Math.PI, true);
+    context.clip();
+    context.clearRect(x - radius, y - radius, radius * 2, radius * 2);
+    context.restore();
+  }
 
   const captureDrawing = (e: React.MouseEvent) => {
     if (!isDrawing) return;
@@ -146,91 +169,127 @@ export default function Home() {
     }
     idleTimeout.current = setTimeout(() => {
       setIsIdle(true);
-      if(!(isIdle &&isDrawing))sendData();
+      if (!(isIdle && isDrawing)) sendData();
     }, 2000);
     const canvas = canvasRef.current;
     if (canvas) {
       const ctx = canvas.getContext("2d");
       if (ctx) {
-        ctx.strokeStyle = selectedColor;
-        ctx.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
-        ctx.stroke();
+        if (isErasing) {
+          clearCircle({
+            context: ctx,
+            x: e.nativeEvent.offsetX,
+            y: e.nativeEvent.offsetY,
+            radius: 10,
+          });
+          canvas.style.cursor = "crosshair";
+        } else {
+          ctx.strokeStyle = selectedColor;
+          ctx.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
+          ctx.stroke();
+        }
       }
     }
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-900/40  text-white">
-      {/* Control Bar */}
-      <div className="grid text-center top-10 absolute left-1/2 tranform -translate-x-1/2 grid-cols-3 gap-4 p-4 items-center w-full sm:w-[80%] border-2 border-gray-800/50 rounded-full bg-gray-700/30 backdrop-blur-xl mx-auto">
-        <button
-          onClick={resetCanvas}
-          className="font-semibold  text-sm sm:text-lg rounded-full py-2 px-1 sm:py-2 sm:px-6  bg-red-400/50 backdrop-blur-lg hover:bg-red-700 text-white transition-shadow shadow-md hover:shadow-xl"
-          disabled={loading}
-        >
-          Reset
-        </button>
-        <div className="flex justify-center space-x-2">
-          {SWATCHES.map((color, index) => (
-            <div
-              key={index}
-              onClick={() => setSelectedColor(color)}
-              style={{
-                backgroundColor: color,
-                border:
-                  color === selectedColor ? "2px solid #00FFAB" : "2px solid transparent",
-              }}
-              className="rounded-full w-6 h-6 cursor-pointer transform hover:scale-110 transition-transform"
-            />
-          ))}
+    <div className="flex flex-col min-h-screen bg-gray-900/40 text-white">
+      {/* Mobile-Friendly Control Bar */}
+      <div className="fixed top-4 left-1/2 transform -translate-x-1/2 w-[95%] max-w-md">
+        <div className="flex flex-col gap-3 p-3 bg-gray-800/30 backdrop-blur-lg rounded-xl border border-gray-700/50 shadow-lg">
+          {/* Top Row - Essential Controls */}
+          <div className="flex items-center justify-between w-full">
+            <div className="flex items-center gap-2">
+              <button
+                onClick={resetCanvas}
+                className={`p-2 rounded-xl transition-all duration-200 ${loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-red-500/20'
+                  } tooltip-wrapper`}
+                disabled={loading}
+                title="Reset Canvas"
+              >
+                <RotateCcw className="w-6 h-6 text-red-400" />
+              </button>
+
+              <button
+                onClick={eraseDrawing}
+                className={`p-2 rounded-xl transition-all duration-200 ${isErasing ? 'bg-yellow-500/20' : ''
+                  } ${loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-yellow-500/20'}`}
+                disabled={loading}
+                title={isErasing ? "Switch to Draw" : "Switch to Erase"}
+              >
+                {isErasing ? (
+                  <Pencil className="w-6 h-6 text-yellow-400" />
+                ) : (
+                  <Eraser className="w-6 h-6 text-yellow-400" />
+                )}
+              </button>
+            </div>
+
+            <button
+              onClick={sendData}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 ${loading
+                  ? 'bg-green-500/20 cursor-wait'
+                  : 'bg-green-500/20 hover:bg-green-500/30'
+                }`}
+              disabled={loading}
+            >
+              <Wand2 className="w-5 h-5" />
+              <span className="text-sm">
+                {loading ? "Magic..." : "Magic!"}
+              </span>
+            </button>
+          </div>
+
+          {/* Bottom Row - Color Swatches */}
+          <div className="flex items-center justify-center gap-3 w-full px-2">
+            {SWATCHES.map((color, index) => (
+              <button
+                key={index}
+                onClick={() => setSelectedColor(color)}
+                className={`sm:h-6 w-6 h-4 rounded-full transition-all duration-200 transform hover:scale-110 ring-offset-2 ring-offset-gray-800 ${color === selectedColor ? 'ring-2 ring-teal-400' : ''
+                  }`}
+                style={{ backgroundColor: color }}
+                title={`Color ${index + 1}`}
+              />
+            ))}
+          </div>
         </div>
-        <button
-          onClick={sendData}
-          className="font-semibold text-sm sm:text-lg text-center items-center rounded-full py-2 px-1 sm:py-2 sm:px-6  bg-green-600 hover:bg-green-700 text-white transition-shadow shadow-md hover:shadow-xl"
-          disabled={loading}
-        >
-          {loading ? "Calculating..." : "Calculate"}
-        </button>
       </div>
+
 
       {/* Result Display */}
       {result && (
-        <div className="fixed top-10 left-1/2 transform -translate-x-1/2 bg-gray-800/30 backdrop-blur-lg p-6 rounded-xl border border-gray-800 text-center">
-          <button
-            onClick={() => setResult(null)}
-            className="absolute top-1 right-3 text-gray-400 hover:text-gray-200 text-3xl"
-          >
-            &times;
-          </button>
-          {result && (
-            <div className="fixed top-10 left-1/2 transform -translate-x-1/2 bg-gray-800/30 backdrop-blur-lg p-6 rounded-xl border border-gray-800 text-center">
-              <button
-                onClick={() => setResult(null)}
-                className="absolute top-1 right-3 text-gray-400 hover:text-gray-200 text-3xl"
-              >
-                &times;
-              </button>
-              <div className="text-2xl font-bold mb-3 text-gray-400 py-2">
-                Expression:
-                {(() => {
-                  const exprMatch = result.expr.match(/"expr":\s*"([^"]*)"/);
-                  return exprMatch ? exprMatch[1] : "Reload and draw again";
-                })()}
+        <div className="fixed top-24 left-1/2 transform -translate-x-1/2 max-w-[90%] w-auto">
+          <div className="bg-gray-800/90 backdrop-blur-lg p-6 rounded-xl border border-gray-700/50 shadow-lg">
+            <button
+              onClick={() => setResult(null)}
+              className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-gray-200 hover:bg-gray-700/50 transition-all duration-200"
+            >
+              ×
+            </button>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <div className="text-sm font-medium text-gray-400">Expression</div>
+                <div className="text-lg font-semibold text-white">
+                  {(() => {
+                    const exprMatch = result.expr.match(/"expr":\s*"([^"]*)"/);
+                    return exprMatch ? exprMatch[1] : "Reload and draw again";
+                  })()}
+                </div>
               </div>
-              <div className="text-2xl font-semibold text-green-400">
-                Result:
-                {(() => {
-                  const resultMatch = result.expr.match(/"result":\s*"([^"]*)"/);
-                  return resultMatch ? resultMatch[1] : "Reload and draw again";
-                })()}
+              <div className="space-y-2">
+                <div className="text-sm font-medium text-gray-400">Result</div>
+                <div className="text-lg font-semibold text-green-400">
+                  {(() => {
+                    const resultMatch = result.expr.match(/"result":\s*"([^"]*)"/);
+                    return resultMatch ? resultMatch[1] : "Reload and draw again";
+                  })()}
+                </div>
               </div>
             </div>
-          )}
-
-
+          </div>
         </div>
       )}
-
 
       {/* Canvas */}
       <canvas
@@ -239,27 +298,18 @@ export default function Home() {
         onMouseMove={captureDrawing}
         onMouseOut={stopDrawing}
         onMouseUp={stopDrawing}
-        className="flex-1 w-full border-t-2"
+        className="flex-1 w-full border-t border-gray-800/30"
       />
+
+      {/* Twitter Link */}
       <a
         href="https://twitter.com/deevee47"
-        className=" absolute bottom-10 right-10 ml-2 flex items-center text-blue-400 hover:text-blue-700 transition duration-300"
+        className="fixed bottom-6 right-6 flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 transition-all duration-200"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          width="20"
-          height="20"
-          className="mr-1"
-          fill="currentColor"
-        >
-          <path
-            d="M22.46 6.011c-.77.342-1.59.572-2.46.675.885-.529 1.56-1.368 1.876-2.364-.828.492-1.74.841-2.71 1.032-.781-.832-1.89-1.351-3.12-1.351-2.36 0-4.28 1.928-4.28 4.296 0 .336.038.663.112.974-3.566-.178-6.73-1.89-8.843-4.493-.37.635-.58 1.374-.58 2.163 0 1.498.761 2.818 1.91 3.596-.707-.023-1.373-.216-1.96-.539v.053c0 2.089 1.468 3.83 3.415 4.227-.358.097-.736.15-1.115.15-.273 0-.54-.027-.803-.08.542 1.693 2.116 2.92 3.98 2.95-1.46 1.144-3.3 1.83-5.29 1.83-1.627 0-3.213-.213-4.744-.627 2.893 1.849 6.344 2.925 9.996 2.925 11.96 0 18.493-9.923 18.493-18.493 0-.28-.01-.56-.03-.839 1.263-.914 2.358-2.047 3.221-3.338z"
-          />
-        </svg>
-        @deevee47
+        <Twitter fill="#60a5fa" size={24} />
+        <span className="font-medium">@deevee47</span>
       </a>
     </div>
   );

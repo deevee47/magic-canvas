@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins} from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
+import { Analytics } from "@vercel/analytics/react"
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"], variable: "--font-poppins" });
 
@@ -52,6 +53,7 @@ export default function RootLayout({
       </head>
       <body className={`${poppins.variable} poppins  antialiased`}>
         {children}
+        <Analytics />
         <Toaster />
       </body>
     </html>

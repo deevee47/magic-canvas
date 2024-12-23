@@ -1,40 +1,70 @@
+import { Linkedin, LinkedinIcon, Twitter } from 'lucide-react';
+import Link from 'next/link';
 import React from 'react';
 
+interface Testimonial {
+    title: string;
+    role: string;
+    review: string;
+    avatar: string; // URL of the avatar image
+}
+
 const Testimonials = () => {
+    const testimonials: Testimonial[] = [
+        { title: "Shashwat Singh", role: "Ted-Ed Speaker", review: "I saw the website of magic-canvas and that seemed really cool for me!", avatar: "https://media.licdn.com/dms/image/v2/D5635AQGE_E0E1y7TjQ/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1734668873477?e=1735459200&v=beta&t=Qu9ASJIPn-1H5HKW87VHjefks5UpDSDFqW3UV9kGMPw" },
+        {
+            title: "Nipurn Goyal", role: "President @AlanTuring", review: "@Apple walo rakhlo ise kaam ka banda hai", avatar: "https://media.licdn.com/dms/image/v2/D5603AQG6A5MFDGdu-g/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1726691673016?e=1740614400&v=beta&t=Qml8w-Azy7LPDt-3sqNWjcgQnsD5vSqi1L0D2TE0fls"
+        },
+        { title: "Priyanshi Choudhary", role: "From LinkedIn", review: "I absolutely love the UI, recognition is quick and quite accurate. Highly recommended.", avatar: "https://media.licdn.com/dms/image/v2/D4E03AQH3TNHG-1QWAA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1722893296804?e=1740614400&v=beta&t=KU2rYZXPjGPIBXzFsuSNkeHxT0T3tpNfnBG1y2am1j4" },
+        { title: "Naval Bihani", role: "From LinkedIn", review: "Great project! Building a functionality of this huge is an achievement! 💪🏻", avatar: "https://media.licdn.com/dms/image/v2/D5635AQGfmW4bMyvaXw/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1731268073542?e=1735459200&v=beta&t=Z8_XvTXT8GV2r3C1Cys8tvgSSIUBwR7Q8lMrF8PvBdc" },
+    ];
+
+    const socialLinks = [{ icon: <Twitter size={30} />, link: "https://twitter.com/deevee47" }, { icon: <Linkedin size={30}/>, link: "https://linkedin.com/in/deevee47" }];
+
     return (
         <div className="w-full flex flex-col justify-center items-center px-4 sm:px-8 lg:px-16 py-10">
             <h1 className="text-4xl sm:text-6xl lg:text-8xl font-bold text-center mb-6">
                 लोगो ka काम hai कहना 🫢
             </h1>
-            <div className="flex flex-col justify-center items-center italic opacity-50 pb-10 pt-10 text-lg sm:text-xl lg:text-2xl text-center">
-                Adding Testimonials Soon! Want me to add yours?
-                <span className="text-gray-200 block mt-2">
-                    Share reviews on my X
+
+            <div className="grid p-20 sm:w-[70%] w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 sm:gap-8">
+                {testimonials.map((testimonial, index) => (
+                    <div key={index} className="relative">
+                        <div className="absolute animate-pulse -inset-1 bg-gradient-to-r from-purple-800/70 via-pink-800/70 to-blue-800/70 w-[90%] h-[60%] my-auto mx-auto rounded-full blur-md"></div>
+                        <div className="relative bg-blue-900/50 backdrop-blur-3xl rounded-2xl p-4">
+                            <div className="flex items-center mb-4">
+                                <img
+                                    src={testimonial.avatar}
+                                    alt={`${testimonial.title} avatar`}
+                                    className="w-12 h-12 rounded-full mr-4"
+                                />
+                                <div>
+                                    <h1 className="text-2xl">{testimonial.title}</h1>
+                                    <h3 className="text-gray-400">{testimonial.role}</h3>
+                                </div>
+                            </div>
+                            <p>{testimonial.review}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+            <div className="flex flex-col justify-center items-center italic opacity-50 pb-10 pt-10 text-md sm:text-lg text-center">
+                Adding More Testimonials Soon! Want me to add yours?
+                <span className="text-gray-200 mt-2">
+                    Share reviews on:
                 </span>
-                <a
-                    href="https://twitter.com/deevee47"
-                    className="mt-2 flex items-center text-blue-400 hover:text-blue-700 transition duration-300"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        width="20"
-                        height="20"
-                        className="mr-1"
-                        fill="currentColor"
+                
+                <div className="flex gap-6">
+                    {socialLinks.map((link, index) => (<Link
+                        href={link.link}
+                        className="mt-2 flex items-center text-blue-400 hover:text-blue-700 transition duration-300"
+                        target="_blank"
+                        rel="noopener noreferrer"
                     >
-                        <path
-                            d="M22.46 6.011c-.77.342-1.59.572-2.46.675.885-.529 1.56-1.368 1.876-2.364-.828.492-1.74.841-2.71 1.032-.781-.832-1.89-1.351-3.12-1.351-2.36 0-4.28 1.928-4.28 4.296 0 .336.038.663.112.974-3.566-.178-6.73-1.89-8.843-4.493-.37.635-.58 1.374-.58 2.163 0 1.498.761 2.818 1.91 3.596-.707-.023-1.373-.216-1.96-.539v.053c0 2.089 1.468 3.83 3.415 4.227-.358.097-.736.15-1.115.15-.273 0-.54-.027-.803-.08.542 1.693 2.116 2.92 3.98 2.95-1.46 1.144-3.3 1.83-5.29 1.83-1.627 0-3.213-.213-4.744-.627 2.893 1.849 6.344 2.925 9.996 2.925 11.96 0 18.493-9.923 18.493-18.493 0-.28-.01-.56-.03-.839 1.263-.914 2.358-2.047 3.221-3.338z"
-                        />
-                    </svg>
-                    @deevee47
-                </a>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8 w-full">
-                {/* Placeholder for testimonials */}
-            </div>
+                        {link.icon}
+                    </Link>))}
+                </div>
+                </div>
         </div>
     );
 };

@@ -1,4 +1,4 @@
-import { ArrowRightIcon, Sparkles } from 'lucide-react';
+import { ArrowRightIcon, ChevronsDown, Sparkles } from 'lucide-react';
 import React from 'react';
 import AnimatedShinyText from './ui/animated-shiny-text';
 import CustomShinyButton from './ui/CustomShinyButton';
@@ -7,7 +7,7 @@ import Link from 'next/link';
 const Hero = () => {
     return (
         <div>
-            <div className="relative z-20 max-w-5xl mx-auto px-4 py-16 flex h-screen flex-col justify-center items-center text-center">
+            <div className="relative z-20 max-w-5xl mx-auto px-4 py-16 flex mt-20 flex-col justify-center items-center text-center">
                 <div className="relative">
                     <Sparkles
                         className="absolute -top-8 -right-80 text-purple-300 animate-pulse hidden lg:block"
@@ -15,8 +15,8 @@ const Hero = () => {
                     />
                 </div>
                 <div className="relative rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 bg-[length:200%_200%] animate-gradient-move">
-                    <AnimatedShinyText className="mx-auto max-w-md text-white animate-shiny-text bg-clip-text bg-no-repeat [background-position:0_0] [background-size:var(--shiny-width)_100%] [transition:background-position_1s_cubic-bezier(.6,.6,0,1)_infinite] bg-gradient-to-r from-transparent via-50% to-transparent via-white/80 inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400 text-sm sm:text-base md:text-lg lg:text-xl">
-                        <span>✨ Introducing Better Apple Intelligence</span>
+                    <AnimatedShinyText className="mx-auto max-w-md text-white animate-shiny-text bg-clip-text bg-no-repeat [background-position:0_0] [background-size:var(--shiny-width)_100%] [transition:background-position_1s_cubic-bezier(.6,.6,0,1)_infinite] bg-gradient-to-r from-transparent via-50% to-transparent via-white/80 inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400 text-sm sm:text-sm md:text-lg">
+                        <span>✨ Introducing BETTER Apple Intelligence</span>
                         <ArrowRightIcon className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
                     </AnimatedShinyText>
                 </div>
@@ -45,6 +45,7 @@ const Hero = () => {
                 <Link href='/'>
                     <CustomShinyButton />
                 </Link>
+                <div className="flex mt-20 text-purple-300 animate-pulse"><ChevronsDown size={40} /></div>
             </div>
         </div>
     );
