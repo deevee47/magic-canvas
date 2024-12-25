@@ -87,7 +87,7 @@ const Navbar = () => {
                                 ✕
                             </button>
 
-                            <h2 className="text-2xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">What&apso;s New in MagicCanvas</h2>
+                            <h2 className="text-2xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Whats New in MagicCanvas</h2>
 
                             <div className="space-y-6">
                                 {changelog.map((entry, index) => (
