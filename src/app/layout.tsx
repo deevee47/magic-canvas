@@ -52,9 +52,9 @@ export default function RootLayout({
         />
       </head>
       <body className={`${poppins.variable} poppins  antialiased`}>
+        <Toaster />
         {children}
         <Analytics />
-        <Toaster />
       </body>
     </html>
   );

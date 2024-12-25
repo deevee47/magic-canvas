@@ -30,8 +30,7 @@ export default function Home() {
   const [variables,] = useState<Variables>({});
   const [loading, setLoading] = useState(false);
   const [isErasing, setIsErasing] = useState(false);
-  const [isIdle, setIsIdle] = useState(false);
-  const idleTimeout = useRef<NodeJS.Timeout | null>(null);
+  const [, setIsIdle] = useState(false);
 
   
   useEffect(() => {
@@ -40,9 +39,30 @@ export default function Home() {
       setReset(false);
     }
   }, [reset]);
+  function stopTouchScrolling(canvas: HTMLCanvasElement | null) {
+    // Prevent scrolling when touching the canvas
+    document.body.addEventListener("touchstart", function (e) {
+      if (e.target == canvas) {
+        e.preventDefault();
+      }
+    }, { passive: false });
+    document.body.addEventListener("touchend", function (e) {
+      if (e.target == canvas) {
+        e.preventDefault();
+      }
+    }, { passive: false });
+    document.body.addEventListener("touchmove", function (e) {
+      if (e.target == canvas) {
+        e.preventDefault();
+      }
+    }, { passive: false });
+
+  }
 
   useEffect(() => {
     const canvas = canvasRef.current;
+    stopTouchScrolling(canvas);
+    
     if (canvas) {
       const ctx = canvas.getContext("2d");
       if (ctx) {
@@ -131,9 +151,6 @@ export default function Home() {
 
   const startDrawing = (e: React.MouseEvent<HTMLCanvasElement>) => {
     setIsIdle(false);
-    if (idleTimeout.current) {
-      clearTimeout(idleTimeout.current);
-    }
     const canvas = canvasRef.current;
     if (canvas) {
       canvas.style.background = "black";
@@ -164,13 +181,6 @@ export default function Home() {
   const captureDrawing = (e: React.MouseEvent) => {
     if (!isDrawing) return;
     setIsIdle(false);
-    if (idleTimeout.current) {
-      clearTimeout(idleTimeout.current);
-    }
-    idleTimeout.current = setTimeout(() => {
-      setIsIdle(true);
-      if (!(isIdle && isDrawing)) sendData();
-    }, 2000);
     const canvas = canvasRef.current;
     if (canvas) {
       const ctx = canvas.getContext("2d");
@@ -192,8 +202,50 @@ export default function Home() {
     }
   };
 
+  const touchCaptureDrawing = (e: any) => {
+    if (!isDrawing) return;
+    setIsIdle(false);
+    
+    let touch = e.touches[0];
+    const canvas = canvasRef.current;
+    if (canvas) {
+      const ctx = canvas.getContext("2d");
+      if (ctx) {
+        if (isErasing) {
+          clearCircle({
+            context: ctx,
+            x: touch.clientX,
+            y: touch.clientY,
+            radius: 10,
+          });
+          canvas.style.cursor = "crosshair";
+        } else {
+          ctx.strokeStyle = selectedColor;
+          ctx.lineTo(touch.clientX, touch.clientY);
+          ctx.stroke();
+        }
+      }
+    }
+  }
+  const touchStartDrawing = (e: any) => {
+    setIsIdle(false);
+    let touch = e.touches[0];
+    const canvas = canvasRef.current;
+    if (canvas) {
+      canvas.style.background = "black";
+      const ctx = canvas.getContext("2d");
+      if (ctx) {
+        ctx.beginPath();
+        ctx.moveTo(touch.clientX, touch.clientY);
+        setIsDrawing(true);
+      }
+    }
+  }
+
+
+
   return (
-    <div className="flex flex-col min-h-screen bg-gray-900/40 text-white">
+    <div className="flex flex-col h-screen bg-gray-900/40 text-white">
       {/* Mobile-Friendly Control Bar */}
       <div className="fixed top-4 left-1/2 transform -translate-x-1/2 w-[95%] max-w-md">
         <div className="flex flex-col gap-3 p-3 bg-gray-800/30 backdrop-blur-lg rounded-xl border border-gray-700/50 shadow-lg">
@@ -235,7 +287,7 @@ export default function Home() {
             >
               <Wand2 className="w-5 h-5" />
               <span className="text-sm">
-                {loading ? "Magic..." : "Magic!"}
+                {loading ? "Performing magic trick..." : "Calculate!"}
               </span>
             </button>
           </div>
@@ -265,7 +317,7 @@ export default function Home() {
               onClick={() => setResult(null)}
               className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-gray-200 hover:bg-gray-700/50 transition-all duration-200"
             >
-              ×
+              X
             </button>
             <div className="space-y-4">
               <div className="space-y-2">
@@ -294,6 +346,10 @@ export default function Home() {
       {/* Canvas */}
       <canvas
         ref={canvasRef}
+        onTouchStart={touchStartDrawing}
+        onTouchMove={touchCaptureDrawing}
+        onTouchEnd={stopDrawing}
+        onTouchCancel={stopDrawing}
         onMouseDown={startDrawing}
         onMouseMove={captureDrawing}
         onMouseOut={stopDrawing}
