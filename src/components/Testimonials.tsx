@@ -28,7 +28,7 @@ const Testimonials = () => {
                 लोगो ka काम hai कहना 🫢
             </h1>
 
-            <div className="grid p-20 sm:w-[70%] w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 sm:gap-8">
+            <div className="grid p-10 sm:p-20 sm:w-[70%] w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 sm:gap-8">
                 {testimonials.map((testimonial, index) => (
                     <div key={index} className="relative">
                         <div className="absolute animate-pulse -inset-1 bg-gradient-to-r from-purple-800/70 via-pink-800/70 to-blue-800/70 w-[90%] h-[60%] my-auto mx-auto rounded-full blur-md"></div>
