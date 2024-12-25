@@ -202,11 +202,11 @@ export default function Home() {
     }
   };
 
-  const touchCaptureDrawing = (e: any) => {
+  const touchCaptureDrawing = (e: React.TouchEvent<HTMLCanvasElement>) => {
     if (!isDrawing) return;
     setIsIdle(false);
     
-    let touch = e.touches[0];
+    const touch = e.touches[0];
     const canvas = canvasRef.current;
     if (canvas) {
       const ctx = canvas.getContext("2d");
@@ -227,9 +227,9 @@ export default function Home() {
       }
     }
   }
-  const touchStartDrawing = (e: any) => {
+  const touchStartDrawing = (e: React.TouchEvent<HTMLCanvasElement>) => {
     setIsIdle(false);
-    let touch = e.touches[0];
+    const touch = e.touches[0];
     const canvas = canvasRef.current;
     if (canvas) {
       canvas.style.background = "black";
