@@ -7,9 +7,9 @@ const CustomScroll = () => {
           <ContainerScroll
           titleComponent={
               <>
-                  <h1 className="text-4xl font-semiboldtext-white">
+                      <h1 className="text-4xl demo-video font-semiboldtext-white">
                       Unleash the power with <br />
-                      <span className="text-4xl md:text-[6rem] font-bold mt-1 leading-none">
+                          <span className="text-4xl  md:text-[6rem] font-bold mt-1 leading-none">
                           Your Fingertips
                       </span>
                   </h1>

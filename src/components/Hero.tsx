@@ -3,6 +3,8 @@ import React from 'react';
 import AnimatedShinyText from './ui/animated-shiny-text';
 import CustomShinyButton from './ui/CustomShinyButton';
 import Link from 'next/link';
+import DemoButton from './DemoButton';
+
 
 const Hero = () => {
     return (
@@ -42,10 +44,14 @@ const Hero = () => {
                         <span>Repeat</span>
                     </div>
                 </div>
+                <div className="flex flex-col-reverse sm:flex-row gap-8">
+                    <DemoButton />
                 <Link href='/'>
                     <CustomShinyButton />
                 </Link>
-                <div className="flex mt-20 text-purple-300 animate-pulse"><ChevronsDown size={40} /></div>
+                </div>
+                    <div className="flex mt-20 text-purple-300 animate-pulse"><ChevronsDown size={40} /></div>
+                    
             </div>
         </div>
     );

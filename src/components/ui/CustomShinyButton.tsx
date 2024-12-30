@@ -16,7 +16,7 @@ const CustomShinyButton = () => {
           ></div>
 
           {/* Button */}
-          <ShinyButton className="relative rounded-xl bg-black shadow-lg px-6 py-3 font-semibold">
+          <ShinyButton className="relative rounded-xl bg-black shadow-lg px-12 py-3 font-bold">
               Try Now
           </ShinyButton>
       </div>
