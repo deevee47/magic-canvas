@@ -11,12 +11,12 @@ interface Testimonial {
 
 const Testimonials = () => {
     const testimonials: Testimonial[] = [
-        { title: "Shashwat Singh", role: "Ted-Ed Speaker", review: "I saw the website of magic-canvas and that seemed really cool for me!", avatar: "https://media.licdn.com/dms/image/v2/D5635AQGE_E0E1y7TjQ/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1734668873477?e=1735459200&v=beta&t=Qu9ASJIPn-1H5HKW87VHjefks5UpDSDFqW3UV9kGMPw" },
+        { title: "Shashwat Singh", role: "Ted-Ed Speaker", review: "I saw the website of magic-canvas and that seemed really cool for me!", avatar: "https://media.licdn.com/dms/image/v2/D5635AQGE_E0E1y7TjQ/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1734668873477?e=1736150400&v=beta&t=PCD5Xwn1dWrSu9uc3Gjg59k3IpDaDf4-uxC2bEu7ifw" },
         {
             title: "Nipurn Goyal", role: "", review: "@Apple walo rakhlo ise kaam ka banda hai", avatar: "https://media.licdn.com/dms/image/v2/D5603AQG6A5MFDGdu-g/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1726691673016?e=1740614400&v=beta&t=Qml8w-Azy7LPDt-3sqNWjcgQnsD5vSqi1L0D2TE0fls"
         },
         { title: "Priyanshi Choudhary", role: "", review: "I absolutely love the UI, recognition is quick and quite accurate. Highly recommended.", avatar: "https://media.licdn.com/dms/image/v2/D4E03AQH3TNHG-1QWAA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1722893296804?e=1740614400&v=beta&t=KU2rYZXPjGPIBXzFsuSNkeHxT0T3tpNfnBG1y2am1j4" },
-        { title: "Naval Bihani", role: "", review: "Great project! Building a functionality of this huge is an achievement! 💪🏻", avatar: "https://media.licdn.com/dms/image/v2/D5635AQGfmW4bMyvaXw/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1731268073542?e=1735459200&v=beta&t=Z8_XvTXT8GV2r3C1Cys8tvgSSIUBwR7Q8lMrF8PvBdc" },
+        { title: "Naval Bihani", role: "", review: "Great project! Building a functionality of this huge is an achievement! 💪🏻", avatar: "https://media.licdn.com/dms/image/v2/D5635AQGfmW4bMyvaXw/profile-framedphoto-shrink_100_100/profile-framedphoto-shrink_100_100/0/1731268073501?e=1736150400&v=beta&t=_yKfGBSy4gHwYsae4IiipqHTiPkrHz3UCBY-XJRXgBM" },
     ];
 
     const socialLinks = [{ icon: <Twitter size={30} />, link: "https://twitter.com/deevee47" }, { icon: <Linkedin size={30}/>, link: "https://linkedin.com/in/deevee47" }];
