@@ -11,12 +11,12 @@ interface Testimonial {
 
 const Testimonials = () => {
     const testimonials: Testimonial[] = [
-        { title: "Shashwat Singh", role: "Ted-Ed Speaker", review: "I saw the website of magic-canvas and that seemed really cool for me!", avatar: "https://media.licdn.com/dms/image/v2/D5635AQGE_E0E1y7TjQ/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1734668873477?e=1736150400&v=beta&t=PCD5Xwn1dWrSu9uc3Gjg59k3IpDaDf4-uxC2bEu7ifw" },
+        { title: "Shashwat Singh", role: "Ted-Ed Speaker", review: "I saw the website of magic-canvas and that seemed really cool for me!", avatar: "https://media.licdn.com/dms/image/v2/D4D03AQHfRVerEP8keg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1690726046565?e=1756944000&v=beta&t=Nz8dIs-bi0_noCUtU5SGv1EPe-wW97nEEInVOXX2o_0" },
         {
-            title: "Nipurn Goyal", role: "", review: "@Apple walo rakhlo ise kaam ka banda hai", avatar: "https://media.licdn.com/dms/image/v2/D5603AQG6A5MFDGdu-g/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1726691673016?e=1740614400&v=beta&t=Qml8w-Azy7LPDt-3sqNWjcgQnsD5vSqi1L0D2TE0fls"
+            title: "Nipurn Goyal", role: "", review: "@Apple walo rakhlo ise kaam ka banda hai", avatar: "https://media.licdn.com/dms/image/v2/D5603AQG6A5MFDGdu-g/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1726691673016?e=1756944000&v=beta&t=iLWIbHkvUi-azvBx9pcUcJD7T4DS4848ub_QIB3ijuE"
         },
-        { title: "Priyanshi Choudhary", role: "", review: "I absolutely love the UI, recognition is quick and quite accurate. Highly recommended.", avatar: "https://media.licdn.com/dms/image/v2/D4E03AQH3TNHG-1QWAA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1722893296804?e=1740614400&v=beta&t=KU2rYZXPjGPIBXzFsuSNkeHxT0T3tpNfnBG1y2am1j4" },
-        { title: "Naval Bihani", role: "", review: "Great project! Building a functionality of this huge is an achievement! 💪🏻", avatar: "https://media.licdn.com/dms/image/v2/D5635AQGfmW4bMyvaXw/profile-framedphoto-shrink_100_100/profile-framedphoto-shrink_100_100/0/1731268073501?e=1736150400&v=beta&t=_yKfGBSy4gHwYsae4IiipqHTiPkrHz3UCBY-XJRXgBM" },
+        { title: "Priyanshi Choudhary", role: "", review: "I absolutely love the UI, recognition is quick and quite accurate. Highly recommended.", avatar: "https://media.licdn.com/dms/image/v2/D4E03AQH3TNHG-1QWAA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1722893296804?e=1756944000&v=beta&t=looki4nsIoR3V1t9b8zYkuHKcwfz2kwUu2jPuW2vtgw" },
+        { title: "Naval Bihani", role: "", review: "Great project! Building a functionality of this huge is an achievement! 💪🏻", avatar: "https://media.licdn.com/dms/image/v2/D5603AQGyQsm_GIAYPQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1731268071460?e=1756944000&v=beta&t=xTNPqUCmjlsQ4VreKf4TnC1EMEFvV1CbZscicuty_gM" },
     ];
 
     const socialLinks = [{ icon: <Twitter size={30} />, link: "https://twitter.com/deevee47" }, { icon: <Linkedin size={30}/>, link: "https://linkedin.com/in/deevee47" }];
