@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
     console.log("Image converted to base64");
 
     // Initialize Gemini model
-    const model = genai.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genai.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
     console.log("Model initialized");
 
     // Prepare prompt
